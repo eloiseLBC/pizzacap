@@ -1,18 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&family=Outfit:wght@100..900&family=Sulphur+Point:wght@300;400;700&display=swap');
 
-body {
-    margin: 0;
-    font-family:
-        -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-        sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-}
+/* Implementation of figma theme 
+   Note : naming of color is inspired from Material theme
+*/
+/* ** QUICK REFERENCE ABOUT FONTS ** 
+    - Jost extralight is jost-200
+    - Jost regular is jost-400
+    - Sulphur point bold is sulphur-point-700
+    - Outfit semibold is outfit-600
+*/
+@theme {
+    --font-jost: 'Jost', sans-serif;
+    --font-outfit: 'Outfit', sans-serif;
+    --font-sulphur-point: 'Sulphur Point', sans-serif;
 
-code {
-    font-family:
-        source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+    --primary: #326625;
+    --primary-variant: #07a95a;
+    --secondary: #d1b381;
+    --secondary-variant: #eadac0;
+    --tertiary: #c32105;
+    --error: #c32105; /* Same color as tertiary, this is a semantic naming */
+    --surface: #FFFFF4;
+    
 }
