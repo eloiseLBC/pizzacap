@@ -1,10 +1,5 @@
 import React, { FC, useState } from 'react';
-interface PizzaComponentProps {
-    name: string,
-    image_url: string,
-    ingredients: string[];
-    price: number;
-}
+import { PizzaComponentProps } from '../../models/PizzaComponentProps';
 
 const PizzaComponent: React.FC<PizzaComponentProps> = ({ name, image_url, ingredients, price }) => {
   const [size, setSize] = useState<'S' | 'M' | 'L'>('S');
