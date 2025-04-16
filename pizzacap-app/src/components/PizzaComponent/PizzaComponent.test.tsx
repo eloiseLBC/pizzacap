@@ -5,7 +5,7 @@ import PizzaComponent from './PizzaComponent';
 
 describe('<PizzaComponent />', () => {
   test('it should mount', () => {
-    render(<PizzaComponent />);
+    render(<PizzaComponent name={''} image_url={''} ingredients={[]} price={0} />);
 
     const pizzaComponent = screen.getByTestId('PizzaComponent');
 
