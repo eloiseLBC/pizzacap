@@ -1,4 +1,4 @@
-import type { StorybookConfig } from '@storybook/react-webpack5';
+import type { StorybookConfig } from '@storybook/react-vite';
 
 const config: StorybookConfig = {
   "stories": [
@@ -7,16 +7,13 @@ const config: StorybookConfig = {
   ],
   "addons": [
     "@storybook/addon-essentials",
-    "@storybook/preset-create-react-app",
     "@storybook/addon-onboarding",
-    "@storybook/addon-interactions"
+    "@chromatic-com/storybook",
+    "@storybook/experimental-addon-test"
   ],
   "framework": {
-    "name": "@storybook/react-webpack5",
+    "name": "@storybook/react-vite",
     "options": {}
-  },
-  "staticDirs": [
-    "../public"
-  ]
+  }
 };
 export default config;
