@@ -6,10 +6,7 @@ import NavbarComponent from './components/NavbarComponent/NavbarComponent';
 import MenuViewProps from './views/MenuView/MenuView';
 
 function App() {
-
-    return (
-        <MenuViewProps></MenuViewProps>
-      );
+    return <MenuViewProps></MenuViewProps>;
 }
 
 export default App;
