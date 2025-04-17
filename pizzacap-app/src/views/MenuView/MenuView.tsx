@@ -27,25 +27,31 @@ const MenuView = () => {
       <NavbarComponent />
       <div className="px-4 sm:px-8 md:px-16 lg:px-24 py-10 max-w-screen-xl mx-auto">
         {Object.entries(groupedByCategory).map(([category, items]) => (
-          <div key={category} className="mb-16">
-            <h2 className="text-3xl font-bold font-outfit text-left ml-2 sm:ml-4 mb-6">{category}</h2>
-
-            <div className="flex flex-wrap justify-center gap-8">
-              {items.map((pizza) => (
-                <PizzaComponent
-                  key={pizza.name} // important pour éviter les warnings React
-                  name={pizza.name}
-                  image_url={pizza.image_url}
-                  ingredients={pizza.ingredients}
-                  price={pizza.price}
-                />
-              ))}
+          <div className="mb-12">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+            <div className="col-span-full">
+              <h2 className="text-3xl font-bold font-outfit mb-4 text-left">
+                {category}
+              </h2>
             </div>
+            
+            {items.map((pizza) => (
+              <PizzaComponent
+                key={pizza.name}
+                name={pizza.name}
+                image_url={pizza.image_url}
+                ingredients={pizza.ingredients}
+                price={pizza.price}
+              />
+            ))}
           </div>
+        </div>
         ))}
       </div>
     </>
   );
 };
+
+
 
 export default MenuView;
