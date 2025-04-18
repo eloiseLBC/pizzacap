@@ -37,7 +37,6 @@ const MenuView = () => {
 
   return (
     <>
-      <NavbarComponent />
       <div className="w-full">
         {/* Barre de recherche */}
         <div className="flex justify-center mt-10 mb-6 px-4">
