@@ -10,7 +10,7 @@ const NavbarComponent: FC<NavbarComponentProps> = () => (
         data-testid="NavbarComponent"
         className="bg-primary text-white flex  font-outfit font-light rounded-b-xl p-2"
     >
-        <img src={logo} alt="My logo" className="w-20" />
+        <Link to="/"><img src={logo} alt="My logo" className="w-20" /></Link>
         <div className="flex-grow inline-flex gap-4 items-center justify-center">
             <Link to="/menu">Commander</Link>
             <a href="#">Offres</a>

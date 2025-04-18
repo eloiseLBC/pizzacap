@@ -5,6 +5,6 @@ import NavbarComponent from '../../components/NavbarComponent/NavbarComponent';
 interface HomeViewProps {}
 
 const HomeView: FC<HomeViewProps> = () => (< >
-    <NavbarComponent />
+    <p>Coucou : HomeView</p>
 </>);
 export default HomeView;

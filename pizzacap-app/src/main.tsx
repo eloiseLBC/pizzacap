@@ -8,8 +8,6 @@ import rooter from "./components/rooter/root";
 
 createRoot(document.getElementById('root')!).render(
     <StrictMode>
-        <RouterProvider router={rooter}>
-            <App />
-        </RouterProvider>
+        <RouterProvider router={rooter}/>
     </StrictMode>,
 );
