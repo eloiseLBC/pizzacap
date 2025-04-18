@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import logo from '../../assets/Logo_PizzaCap_Couleur.png';
 import bagShopping from '../../assets/bag-shopping-solid.svg';
+import { Link } from 'react-router-dom';
 
 interface NavbarComponentProps {}
 
@@ -11,9 +12,7 @@ const NavbarComponent: FC<NavbarComponentProps> = () => (
     >
         <img src={logo} alt="My logo" className="w-20" />
         <div className="flex-grow inline-flex gap-4 items-center justify-center">
-            <a href="#" className="">
-                Commander
-            </a>
+            <Link to="/menu">Commander</Link>
             <a href="#">Offres</a>
             <a href="#">Uber/Deliveroo</a>
             <a href="#">Nous trouver</a>
