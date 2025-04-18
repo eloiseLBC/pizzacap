@@ -15,19 +15,19 @@ const MenuView = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  // ✅ Liste des catégories uniques sans undefined
+  // Liste des catégories uniques sans undefined
   const allCategories = Array.from(
     new Set(pizzas.map((p) => p.categorie).filter((c): c is string => typeof c === 'string'))
   );
 
-  // ✅ Filtrage par recherche et catégorie
+  // Filtrage par recherche et catégorie
   const filteredPizzas = pizzas.filter((p) => {
     const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory ? p.categorie === selectedCategory : true;
     return matchesSearch && matchesCategory;
   });
 
-  // ✅ Groupement par catégorie
+  // Groupement par catégorie
   const groupedByCategory: { [key: string]: PizzaComponentProps[] } = filteredPizzas.reduce((acc, pizza) => {
     const category = pizza.categorie || 'Autres';
     if (!acc[category]) acc[category] = [];
@@ -39,7 +39,7 @@ const MenuView = () => {
     <>
       <NavbarComponent />
       <div className="w-full">
-        {/* ✅ Barre de recherche */}
+        {/* Barre de recherche */}
         <div className="flex justify-center mt-10 mb-6 px-4">
           <input
             type="text"
@@ -50,7 +50,7 @@ const MenuView = () => {
           />
         </div>
 
-        {/* ✅ Filtres de catégories */}
+        {/* Filtres de catégories */}
         <div className="flex flex-wrap justify-center gap-4 mb-10 px-4">
           <button
             onClick={() => setSelectedCategory(null)}
@@ -77,14 +77,14 @@ const MenuView = () => {
           ))}
         </div>
 
-        {/* ✅ Message si aucun résultat */}
+        {/* Message si aucun résultat */}
         {Object.keys(groupedByCategory).length === 0 && (
           <p className="text-center text-gray-500 mt-8 font-outfit">
             Aucun résultat ne correspond à ta recherche.
           </p>
         )}
 
-        {/* ✅ Affichage des pizzas par catégorie */}
+        {/* Affichage des pizzas par catégorie */}
         {Object.entries(groupedByCategory).map(([category, items]) => (
             <div key={category} className="max-w-screen-xl mx-auto mb-20">
             <h2 className="text-3xl font-bold font-outfit mb-8 mt-20 text-left px-6 md:px-10">{category}</h2>
