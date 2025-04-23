@@ -1,12 +1,14 @@
 import React, { FC, useState, useEffect } from 'react';
 import { PizzaComponentProps } from '../../models/PizzaComponentProps';
 import { useCart } from '../../contexts/CartContext';
+import leafIcon from '../../assets/Vegetarien_logo.png';
 
 const PizzaComponent: React.FC<PizzaComponentProps> = ({
     name,
     image_url,
     ingredients,
     price,
+    features
 }) => {
     const [size, setSize] = useState<'S' | 'M' | 'L'>('S');
     const [quantity, setQuantity] = useState(0);
@@ -21,6 +23,8 @@ const PizzaComponent: React.FC<PizzaComponentProps> = ({
         setQuantity((prev) => Math.max(0, prev + delta));
     };
 
+    const isVegetarian = features?.includes('Vegetarian');
+
     return (
         <div className="w-72 rounded-3xl border border-green-500 flex flex-col items-center shadow-md">
             <div className="w-full bg-green-600 rounded-t-3xl py-2 flex justify-center">
@@ -28,11 +32,20 @@ const PizzaComponent: React.FC<PizzaComponentProps> = ({
                     {name}
                 </h2>
             </div>
-            <img
-                src={image_url}
-                alt={name}
-                className="rounded-b-xl w-full h-36 object-cover mb-3"
-            />
+            <div className="relative w-full">
+                <img
+                    src={image_url}
+                    alt={name}
+                    className="rounded-b-xl w-full h-36 object-cover mb-3"
+                />
+                {isVegetarian && (
+                    <img
+                        src={leafIcon}
+                        alt="Végétarienne"
+                        className="absolute -right-4 bottom-4 translate-y-1/2 w-26 h-20 drop-shadow-md"
+                        />
+                )}
+            </div>
             <div className="flex flex-col items-center p-3">
                 <div className="w-full text-left">
                     <h3 className="font-semibold">Ingrédients</h3>

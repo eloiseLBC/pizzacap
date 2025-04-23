@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import PizzaComponent from '../../components/PizzaComponent/PizzaComponent';
 import { PizzaComponentProps } from '../../models/PizzaComponentProps';
-import NavbarComponent from '../../components/NavbarComponent/NavbarComponent';
 
 const MenuView = () => {
     const [pizzas, setPizzas] = useState<PizzaComponentProps[]>([]);
@@ -116,6 +115,7 @@ const MenuView = () => {
                                     image_url={pizza.image_url}
                                     ingredients={pizza.ingredients}
                                     price={pizza.price}
+                                    features={pizza.features}
                                 />
                             ))}
                         </div>
