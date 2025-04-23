@@ -10,6 +10,7 @@ interface CartOverlayProps {
 
 const CartOverlay: React.FC<CartOverlayProps> = ({ isOpen, onClose }) => {
   const { cartItems } = useCart();
+  const totalPrice = cartItems.reduce((acc, item) => acc + item.price * item.quantity, 0);
 
   return (
     <div
@@ -38,11 +39,19 @@ const CartOverlay: React.FC<CartOverlayProps> = ({ isOpen, onClose }) => {
               <div className="flex flex-col">
                 <span className="font-semibold">{item.name}</span>
                 <span className="text-sm text-gray-500">{item.quantity} × {item.price}€</span>
+                <span className="text-sm text-gray-500">Taille: {item.size}</span>
               </div>
             </div>
           ))
         )}
       </div>
+      <div className="p-6 border-t border-gray-200">
+        <div className="flex justify-between items-center text-lg font-outfit font-semibold">
+          <span>Total</span>
+          <span className="bg-green-600 text-white px-4 py-2 rounded-full">{totalPrice.toFixed(2)}€</span>
+        </div>
+      </div>
+
     </div>
   );
 };
