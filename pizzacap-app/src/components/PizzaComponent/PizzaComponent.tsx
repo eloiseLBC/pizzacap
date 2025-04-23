@@ -8,7 +8,7 @@ const PizzaComponent: React.FC<PizzaComponentProps> = ({
     image_url,
     ingredients,
     price,
-    features
+    features,
 }) => {
     const [size, setSize] = useState<'S' | 'M' | 'L'>('S');
     const [quantity, setQuantity] = useState(0);
@@ -43,7 +43,7 @@ const PizzaComponent: React.FC<PizzaComponentProps> = ({
                         src={leafIcon}
                         alt="Végétarienne"
                         className="absolute -right-4 bottom-4 translate-y-1/2 w-26 h-20 drop-shadow-md"
-                        />
+                    />
                 )}
             </div>
             <div className="flex flex-col items-center p-3">
