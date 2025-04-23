@@ -5,5 +5,5 @@ export interface PizzaComponentProps {
     ingredients: string[];
     price: number;
     categorie?: string;
-    features?: string;
+    features?: string[];
 }

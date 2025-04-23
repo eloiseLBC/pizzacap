@@ -2,14 +2,17 @@ import React, { FC, useState, useEffect } from 'react';
 import { PizzaComponentProps } from '../../models/PizzaComponentProps';
 import { useCart } from '../../contexts/CartContext';
 import leafIcon from '../../assets/Vegetarien_logo.png';
+import { useNavigate } from 'react-router-dom';
 
 const PizzaComponent: React.FC<PizzaComponentProps> = ({
+    id,
     name,
     image_url,
     ingredients,
     price,
     features,
 }) => {
+    const navigate = useNavigate();
     const [size, setSize] = useState<'S' | 'M' | 'L'>('S');
     const [quantity, setQuantity] = useState(0);
 
@@ -26,7 +29,7 @@ const PizzaComponent: React.FC<PizzaComponentProps> = ({
     const isVegetarian = features?.includes('Vegetarian');
 
     return (
-        <div className="w-72 rounded-3xl border border-green-500 flex flex-col items-center shadow-md">
+        <div onClick={() => navigate(`/details/${id}`)} className="w-72 rounded-3xl border border-green-500 flex flex-col items-center shadow-md">
             <div className="w-full bg-green-600 rounded-t-3xl py-2 flex justify-center">
                 <h2 className="font-outfit text-lg font-bold text-white text-2xl">
                     {name}
