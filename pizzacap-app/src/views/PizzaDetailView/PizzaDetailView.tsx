@@ -41,85 +41,85 @@ const PizzaDetailView: React.FC = () => {
     });
   };
 
-  return (
-    <div className="p-6 md:p-12 font-outfit">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-        <div>
-          <h1 className="text-4xl font-bold mb-2">{pizza.name}</h1>
-          <h2 className="text-2xl mb-4">Ingrédients</h2>
-          <p className="text-gray-700 mb-6 leading-relaxed">{pizza.ingredients}</p>
+  const handleQuantityChange = (delta: number) => {
+    setQuantity((prev) => Math.max(0, prev + delta));
+};
 
-          <div className="flex gap-4 mb-4">
-            {['S', 'M', 'L'].map((s) => (
-              <button
-                key={s}
-                onClick={() => setSize(s as 'S' | 'M' | 'L')}
-                className={`px-4 py-2 rounded-full text-white font-semibold text-lg transition ${
-                  size === s ? 'bg-green-600' : 'bg-beige text-black'
-                }`}
-              >
-                {s}
-              </button>
-            ))}
-          </div>
+return (
+    <div className="p-8 font-outfit">
+        <div className="flex flex-col md:flex-row items-center gap-8">
+            <div className="relative">
+                <img src={pizza.image_url} alt={pizza.name} className="rounded-xl w-full max-w-md" />
+                {pizza.features?.includes('Vegetarian') && (
+                    <div className="absolute top-4 right-4 bg-beige p-3 rounded-xl shadow-md flex items-center gap-2">
+                        <span className="text-green-600 font-bold text-lg">🥬</span>
+                        <span className="text-black font-semibold">Végétarienne</span>
+                    </div>
+                )}
+            </div>
 
-          <div className="text-xl bg-beige px-4 py-2 rounded-full inline-block font-semibold mb-4">
-            {pizza.price}€
-          </div>
+            <div className="max-w-xl w-full space-y-4">
+                <h1 className="text-4xl font-bold">{pizza.name}</h1>
+                <h2 className="text-2xl font-semibold">Ingrédients</h2>
+                <p className="text-gray-700">{pizza.ingredients}</p>
 
-          <div className="flex gap-4 mb-4">
-            {pizza.nutriscore && (
-              <div className="flex items-center gap-2 bg-beige rounded-full px-4 py-2">
-                <span>Nutriscore</span>
-                <span className="bg-green-500 text-white rounded-full w-6 h-6 flex items-center justify-center">
-                  {pizza.nutriscore}
-                </span>
-              </div>
-            )}
-            {pizza.stars && (
-              <div className="flex items-center gap-2 bg-beige rounded-full px-4 py-2">
-                <span>Note</span>
-                <span>🌟 {pizza.stars}</span>
-              </div>
-            )}
-          </div>
+                <div className="flex gap-4">
+                    {['S', 'M', 'L'].map((s) => (
+                        <button
+                            key={s}
+                            onClick={() => setSize(s as 'S' | 'M' | 'L')}
+                            className={`px-4 py-2 rounded-full font-bold border ${
+                                size === s ? 'bg-green-500 text-white' : 'bg-beige text-black'
+                            }`}
+                        >
+                            {s}
+                        </button>
+                    ))}
+                </div>
 
-          <div className="flex gap-4 mb-6">
-            {pizza.promos?.map((promo, index) => (
-              <div
-                key={index}
-                className="bg-green-100 text-green-800 px-4 py-1 rounded-full text-sm font-semibold"
-              >
-                {promo}
-              </div>
-            ))}
-          </div>
+                <div className="bg-beige text-black px-4 py-2 rounded-full font-bold text-xl w-fit">
+                    {pizza.price}€
+                </div>
 
-          <button
-            onClick={handleAddToCart}
-            className="w-16 h-16 rounded-full bg-green-600 text-white text-3xl flex items-center justify-center shadow-lg"
-          >
-            +
-          </button>
+                <div className="flex gap-4 items-center">
+                    <div className="bg-beige rounded-full px-4 py-1 flex items-center gap-2">
+                        <span className="text-gray-600">Nutriscore</span>
+                        <span className="bg-green-600 text-white font-bold w-6 h-6 flex items-center justify-center rounded-full">B</span>
+                    </div>
+                    <div className="bg-beige rounded-full px-4 py-1 flex items-center gap-2">
+                        <span className="text-gray-600">Note</span>
+                        <span className="text-xl font-bold">5 ⭐</span>
+                    </div>
+                </div>
+
+                <div className="flex items-center gap-4">
+                    <button
+                        onClick={() => handleQuantityChange(-1)}
+                        className="bg-green-500 text-white px-4 py-2 rounded-full text-xl font-bold"
+                    >
+                        -
+                    </button>
+                    <span className="text-xl font-bold">{quantity}</span>
+                    <button
+                        onClick={() => handleQuantityChange(1)}
+                        className="bg-green-500 text-white px-4 py-2 rounded-full text-xl font-bold"
+                    >
+                        +
+                    </button>
+                </div>
+
+                <div className="flex gap-4 mt-4">
+                    <span className="bg-green-100 text-green-600 px-4 py-1 rounded-full font-semibold text-sm">
+                        -30% sur la 2e
+                    </span>
+                    <span className="bg-green-100 text-green-600 px-4 py-1 rounded-full font-semibold text-sm">
+                        3 achetées 1 offerte
+                    </span>
+                </div>
+            </div>
         </div>
-
-        <div className="relative">
-          <img
-            src={pizza.image_url}
-            alt={pizza.name}
-            className="rounded-xl shadow-xl w-full"
-          />
-          {pizza.features?.includes('végétarienne') && (
-            <img
-              src={leafIcon}
-              alt="Végétarienne"
-              className="absolute top-4 right-4 w-14 h-14 drop-shadow-md"
-            />
-          )}
-        </div>
-      </div>
     </div>
-  );
+);
 };
 
 export default PizzaDetailView;
