@@ -29,17 +29,17 @@ const PizzaComponent: React.FC<PizzaComponentProps> = ({
     const isVegetarian = features?.includes('Vegetarian');
 
     return (
-        <div onClick={() => navigate(`/details/${id}`)} className="w-72 rounded-3xl border border-green-500 flex flex-col items-center shadow-md">
+        <div className="w-72 rounded-3xl border border-green-500 flex flex-col items-center shadow-md">
             <div className="w-full bg-green-600 rounded-t-3xl py-2 flex justify-center">
                 <h2 className="font-outfit text-lg font-bold text-white text-2xl">
                     {name}
                 </h2>
             </div>
             <div className="relative w-full">
-                <img
+                <img onClick={() => navigate(`/details/${id}`)}
                     src={image_url}
                     alt={name}
-                    className="rounded-b-xl w-full h-36 object-cover mb-3"
+                    className="rounded-b-xl w-full h-36 object-cover mb-3 transition-transform cursor-pointer"
                 />
                 {isVegetarian && (
                     <img

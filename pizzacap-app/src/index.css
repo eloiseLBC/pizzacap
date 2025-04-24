@@ -9,3 +9,8 @@
     padding: 0;
     background-color: '#fffff4';
 }
+
+.concave-corners {
+    clip-path: path("M 0 0 Q 40 40 0 80 Q 40 120 0 160 L 150 160 Q 110 120 150 80 Q 110 40 150 0 Z");
+  }
+  
