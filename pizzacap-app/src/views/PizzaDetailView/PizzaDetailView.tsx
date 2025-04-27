@@ -25,11 +25,14 @@ const PizzaDetailView: React.FC = () => {
         M: 0,
         L: 0,
     });
+    const { cartItems, updateCartItem } = useCart();
 
     const [size, setSize] = useState<'S' | 'M' | 'L'>('M');
-    const quantity = quantities[size];
+    const quantity =
+        cartItems.find(
+            (item) => item.name === pizza?.name && item.size === size,
+        )?.quantity || 0;
 
-    const { updateCartItem } = useCart();
     const [ripple, setRipple] = useState(false);
 
     useEffect(() => {
@@ -74,7 +77,7 @@ const PizzaDetailView: React.FC = () => {
 
     return (
         <div className="min-h-screen bg-beige font-outfit text-black">
-            <div className="max-w-[1200px] mx-auto px-6 py-12 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="max-w-[1200px] mx-auto px-6 py-11 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
                 <div>
                     <h1 className="text-5xl font-bold mb-4">{pizza.name}</h1>
                     <h2 className="text-2xl font-semibold mb-2">Ingrédients</h2>
@@ -83,14 +86,14 @@ const PizzaDetailView: React.FC = () => {
                     </p>
 
                     <div className="flex flex-col gap-4 mb-6">
-                        <div className="inline-flex items-center gap-2 bg-[#D1B381] rounded-full px-4 py-2 text-white font-outfit shadow-sm w-fit">
+                        <div className="inline-flex items-center gap-2 h-25 bg-[#D1B381] rounded-full px-4 py-2 text-white font-outfit shadow-sm w-fit">
                             {['S', 'M', 'L'].map((s) => (
                                 <button
                                     key={s}
                                     onClick={() =>
                                         handleSizeChange(s as 'S' | 'M' | 'L')
                                     }
-                                    className={`px-4 py-1 rounded-full font-bold text-sm transition-all ${
+                                    className={`px-4 py-1 rounded-full font-bold text-2xl transition-all ${
                                         size === s
                                             ? 'bg-green-600 text-white shadow'
                                             : 'bg-beige text-white'
@@ -107,24 +110,22 @@ const PizzaDetailView: React.FC = () => {
 
                         <div className="inline-flex items-center gap-6 bg-[#D1B381] rounded-full px-6 py-2 text-white font-outfit shadow-sm w-fit">
                             <div className="flex flex-col items-center">
-                                <span className="text-xs mb-1">Nutriscore</span>
-                                <span className="bg-green-600 text-white rounded-full w-6 h-6 flex items-center justify-center font-bold text-sm shadow-sm">
+                                <span className="text-m mb-1">Nutriscore</span>
+                                <span className="bg-green-600 text-white rounded-full w-10 h-10 flex items-center justify-center font-bold text-sm shadow-sm">
                                     B
                                 </span>
                             </div>
                             <div className="flex flex-col items-center">
-                                <span className="text-xs mb-1">Note</span>
+                                <span className="text-m mb-1">Note</span>
                                 <div className="flex items-center gap-1">
                                     <span className="font-semibold text-base">
                                         5
                                     </span>
-                                    <div className="w-5 h-5 rounded-full bg-[#D9C299] flex items-center justify-center text-sm text-white">
-                                        <img
-                                            src={starsIcon}
-                                            alt="Étoiles"
-                                            className="w-4 h-4"
-                                        />
-                                    </div>
+                                    <img
+                                        src={starsIcon}
+                                        alt="Étoiles"
+                                        className="w-10 h-10"
+                                    />
                                 </div>
                             </div>
                         </div>
