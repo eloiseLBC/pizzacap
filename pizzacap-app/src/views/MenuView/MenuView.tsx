@@ -45,8 +45,14 @@ const MenuView = () => {
             return acc;
         }, {} as { [key: string]: PizzaComponentProps[] });
 
+        console.log(pizzas);
+        for (const pizza of pizzas) {
+            console.log(pizza.features);
+        }
     return (
+        
         <>
+        
             <div className="w-full">
                 {/* Barre de recherche */}
                 <div className="flex justify-center mt-10 mb-6 px-4">

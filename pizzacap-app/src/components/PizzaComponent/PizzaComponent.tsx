@@ -26,7 +26,7 @@ const PizzaComponent: React.FC<PizzaComponentProps> = ({
         setQuantity((prev) => Math.max(0, prev + delta));
     };
 
-    const isVegetarian = features?.includes('Vegetarian');
+    const isVegetarian = features?.Vegetarian === true;
 
     return (
         <div className="w-72 rounded-3xl border border-green-500 flex flex-col items-center shadow-md">

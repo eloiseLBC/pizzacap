@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useCart } from '../../contexts/CartContext';
-import leafIcon from '../../assets/Vegetarien_logo.png';
-import wheatIcon from '../../assets/Sans_gluten_logo.png';
-import alertIcon from '../../assets/alert.png';
+import leafIcon from '../../assets/leaf_details.png';
+import glutenIcon from '../../assets/gluten_details.png';
+import spicyIcon from '../../assets/pepper-hot-solid.svg';
 import starsIcon from '../../assets/stars.png';
 
 interface Pizza {
@@ -38,9 +38,9 @@ const PizzaDetailView: React.FC = () => {
     if (!pizza) return <div className="text-center mt-20">Chargement...</div>;
 
     const featureIcons: { [key: string]: string } = {
-        Végétarienne: leafIcon,
-        GlutenFree: wheatIcon,
-        Spicy: alertIcon,
+        Vegetarian: leafIcon,
+        GlutenFree: glutenIcon,
+        Spicy: spicyIcon,
     };
 
     const handleAddToCart = () => {
@@ -68,7 +68,9 @@ const PizzaDetailView: React.FC = () => {
                             {['S', 'M', 'L'].map((s) => (
                                 <button
                                     key={s}
-                                    onClick={() => setSize(s as 'S' | 'M' | 'L')}
+                                    onClick={() =>
+                                        setSize(s as 'S' | 'M' | 'L')
+                                    }
                                     className={`px-4 py-1 rounded-full font-bold text-sm transition-all ${
                                         size === s
                                             ? 'bg-green-600 text-white shadow'
@@ -94,9 +96,15 @@ const PizzaDetailView: React.FC = () => {
                             <div className="flex flex-col items-center">
                                 <span className="text-xs mb-1">Note</span>
                                 <div className="flex items-center gap-1">
-                                    <span className="font-semibold text-base">5</span>
+                                    <span className="font-semibold text-base">
+                                        5
+                                    </span>
                                     <div className="w-5 h-5 rounded-full bg-[#D9C299] flex items-center justify-center text-sm text-white">
-                                        <img src={starsIcon} alt="Étoiles" className="w-4 h-4" />
+                                        <img
+                                            src={starsIcon}
+                                            alt="Étoiles"
+                                            className="w-4 h-4"
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -104,57 +112,68 @@ const PizzaDetailView: React.FC = () => {
                     </div>
                 </div>
 
-                <div className="relative max-w-full">
-                    <div className="relative overflow-hidden">
-                        <img
-                            src={pizza.image_url}
-                            alt={pizza.name}
-                            className="object-cover crop rounded-[30px] transition-transform duration-300 transform hover:scale-105"
-                            style={{ height: '456px', width: '900px' }}
-                        />
-
-                        {/* Badge de features */}
-                        {pizza.features && Object.values(pizza.features).length > 0 && (
-                            <div className="absolute top-4 right-4 bg-[#F0E9DB] px-5 py-2 rounded-2xl shadow-md flex gap-3 items-center z-20">
-                                {Object.values(pizza.features).map((feature, index) => {
-                                    const normalized = feature.toLowerCase().replace(/[^a-z]/g, '');
-                                    const matchKey =
-                                        normalized.includes('vegetarienne')
-                                            ? 'Végétarienne'
+                <div className="relative w-full max-w-[900px] top-8">
+                    {/* Badge de features */}
+                    {pizza.features &&
+                        Object.keys(pizza.features).length > 0 && (
+                            <div className="absolute top-12 right-[-70px] bg-secondary-variant rounded-full px-8 py-4 shadow-md flex gap-5 items-center z-30 min-h-[70px]">
+                                {Object.entries(pizza.features).map(
+                                    ([featureName, isEnabled], index) => {
+                                        if (!isEnabled) return null;
+                                        const normalized = featureName
+                                            .toLowerCase()
+                                            .replace(/[^a-z]/g, '');
+                                        const matchKey = normalized.includes(
+                                            'vegetarian',
+                                        )
+                                            ? 'Vegetarian'
                                             : normalized.includes('gluten')
                                             ? 'GlutenFree'
-                                            : normalized.includes('spicy') || normalized.includes('epice')
+                                            : normalized.includes('spicy') ||
+                                              normalized.includes('epice')
                                             ? 'Spicy'
+                                            : normalized.includes('seafood')
+                                            ? 'Seafood'
                                             : null;
 
-                                    return matchKey && featureIcons[matchKey] ? (
-                                        <img
-                                            key={index}
-                                            src={featureIcons[matchKey]}
-                                            alt={matchKey}
-                                            className="w-6 h-6"
-                                        />
-                                    ) : null;
-                                })}
+                                        return matchKey &&
+                                            featureIcons[matchKey] ? (
+                                            <img
+                                                key={index}
+                                                src={featureIcons[matchKey]}
+                                                alt={matchKey}
+                                                className="w-16 h-16 object-contain transition-transform duration-300 transform hover:scale-110"
+                                            />
+                                        ) : null;
+                                    },
+                                )}
                             </div>
                         )}
 
-                        {/* Div blanche arrondie */}
-                        <div
-                            className="absolute bottom-0 left-0 w-[160px] h-[130px] bg-white z-10"
-                            style={{
-                                clipPath: 'url(#pizzaShape)',
-                                borderTopRightRadius: '30px',
-                            }}
-                        ></div>
+                    {/* Image de la pizza */}
+                    <img
+                        src={pizza.image_url}
+                        alt={pizza.name}
+                        className="object-cover rounded-[30px]"
+                        style={{ height: '456px', width: '900px' }}
+                    />
 
-                        <button
-                            onClick={handleAddToCart}
-                            className="absolute bottom-[25px] left-[35px] w-20 h-20 bg-green-600 text-white rounded-full z-20 shadow text-3xl flex items-center justify-center"
-                        >
-                            +
-                        </button>
-                    </div>
+                    {/* Forme blanche arrondie en bas */}
+                    <div
+                        className="absolute bottom-0 left-0 w-[160px] h-[130px] bg-white z-10"
+                        style={{
+                            clipPath: 'url(#pizzaShape)',
+                            borderTopRightRadius: '30px',
+                        }}
+                    ></div>
+
+                    {/* Bouton + */}
+                    <button
+                        onClick={handleAddToCart}
+                        className="absolute bottom-[25px] left-[35px] w-20 h-20 bg-green-600 text-white rounded-full z-20 shadow text-5xl flex items-center justify-center transition-transform duration-300 transform hover:scale-105 "
+                    >
+                        +
+                    </button>
                 </div>
             </div>
 
