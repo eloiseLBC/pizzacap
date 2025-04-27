@@ -115,6 +115,7 @@ const MenuView = () => {
                                 ingredients={pizza.ingredients}
                                 price={pizza.price}
                                 features={pizza.features}
+                                categorie={pizza.categorie}
                             />
                         ))}
                     </div>
