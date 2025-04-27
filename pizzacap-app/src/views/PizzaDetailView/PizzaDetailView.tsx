@@ -18,8 +18,17 @@ interface Pizza {
 const PizzaDetailView: React.FC = () => {
     const { pizzaId } = useParams<{ pizzaId: string }>();
     const [pizza, setPizza] = useState<Pizza | null>(null);
+    const [quantities, setQuantities] = useState<{
+        [key in 'S' | 'M' | 'L']: number;
+    }>({
+        S: 0,
+        M: 0,
+        L: 0,
+    });
+
     const [size, setSize] = useState<'S' | 'M' | 'L'>('M');
-    const [quantity, setQuantity] = useState(0);
+    const quantity = quantities[size];
+
     const { updateCartItem } = useCart();
 
     useEffect(() => {
@@ -38,7 +47,11 @@ const PizzaDetailView: React.FC = () => {
     };
 
     const handleQuantityChange = (newQuantity: number) => {
-        setQuantity(newQuantity);
+        setQuantities((prev) => ({
+            ...prev,
+            [size]: newQuantity,
+        }));
+
         updateCartItem({
             name: pizza.name,
             image_url: pizza.image_url,
@@ -54,7 +67,6 @@ const PizzaDetailView: React.FC = () => {
 
     const handleSizeChange = (newSize: 'S' | 'M' | 'L') => {
         setSize(newSize);
-        setQuantity(0);
     };
 
     return (
