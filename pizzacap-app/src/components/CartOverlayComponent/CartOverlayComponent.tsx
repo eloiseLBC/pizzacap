@@ -56,7 +56,7 @@ const CartOverlay: React.FC<CartOverlayProps> = ({ isOpen, onClose }) => {
               <div className="flex flex-col flex-grow">
                 <span className="font-semibold">{item.name}</span>
                 <span className="text-sm text-gray-500">
-                  {item.price}€ / Taille {item.size}
+                  {item.price.toFixed(2)}€ / Taille {item.size}
                 </span>
               </div>
               <div className="flex flex-col items-center gap-1">
