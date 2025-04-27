@@ -18,8 +18,22 @@ const PizzaComponent: React.FC<PizzaComponentProps> = ({
 
     const { updateCartItem } = useCart();
 
+    // ➔ Fonction pour calculer le prix selon la taille choisie
+    const getPriceForSize = (basePrice: number, size: 'S' | 'M' | 'L') => {
+        if (size === 'S') return (basePrice * 0.8);
+        if (size === 'L') return (basePrice * 1.2);
+        return basePrice;
+    };
+
+    // ➔ Utiliser le prix ajusté dans l'update du panier
     useEffect(() => {
-        updateCartItem({ name, image_url, price, size, quantity });
+        updateCartItem({
+            name,
+            image_url,
+            price: getPriceForSize(price, size), // <- utilise le prix corrigé ici
+            size,
+            quantity,
+        });
     }, [quantity, size]);
 
     const handleQuantityChange = (delta: number) => {
@@ -36,7 +50,8 @@ const PizzaComponent: React.FC<PizzaComponentProps> = ({
                 </h2>
             </div>
             <div className="relative w-full">
-                <img onClick={() => navigate(`/details/${id}`)}
+                <img 
+                    onClick={() => navigate(`/details/${id}`)}
                     src={image_url}
                     alt={name}
                     className="rounded-b-xl w-full h-36 object-cover mb-3 transition-transform cursor-pointer"
@@ -60,9 +75,7 @@ const PizzaComponent: React.FC<PizzaComponentProps> = ({
                             key={s}
                             onClick={() => setSize(s as 'S' | 'M' | 'L')}
                             className={`rounded-full px-3 py-1 text-white text-sm font-semibold ${
-                                size === s
-                                    ? 'bg-red-500'
-                                    : 'bg-gray-200 text-black'
+                                size === s ? 'bg-red-500' : 'bg-gray-200 text-black'
                             }`}
                         >
                             {s}
@@ -75,7 +88,7 @@ const PizzaComponent: React.FC<PizzaComponentProps> = ({
                     <button onClick={() => handleQuantityChange(1)}>+</button>
                 </div>
                 <div className="mt-3 bg-green-500 text-white px-6 py-1 rounded-full font-bold">
-                    {price}€
+                    {getPriceForSize(price, size).toFixed(2)}€
                 </div>
             </div>
         </div>

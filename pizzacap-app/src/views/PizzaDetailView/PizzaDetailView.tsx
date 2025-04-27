@@ -36,18 +36,26 @@ const PizzaDetailView: React.FC = () => {
     }, [pizzaId]);
 
     if (!pizza) return <div className="text-center mt-20">Chargement...</div>;
-
     const featureIcons: { [key: string]: string } = {
         Vegetarian: leafIcon,
         GlutenFree: glutenIcon,
         Spicy: spicyIcon,
     };
 
+    // ➔ Fonction pour calculer le prix selon la taille
+    const getPriceForSize = (basePrice: number, size: 'S' | 'M' | 'L') => {
+        if (size === 'S') return basePrice * 0.8;
+        if (size === 'L') return basePrice * 1.2;
+        return basePrice;
+    };
+
     const handleQuantityChange = (newQuantity: number) => {
+        if (!pizza) return;
+        
         updateCartItem({
             name: pizza.name,
             image_url: pizza.image_url,
-            price: pizza.price,
+            price: getPriceForSize(pizza.price, size), // 👈 ici aussi on utilise le bon prix
             size,
             quantity: newQuantity,
         });
@@ -94,9 +102,9 @@ const PizzaDetailView: React.FC = () => {
                             ))}
                         </div>
 
-                        {/* Prix */}
+                        {/* Prix dynamique */}
                         <div className="inline-flex bg-[#D1B381] rounded-full px-6 py-2 text-white font-outfit text-lg font-semibold shadow-sm w-fit">
-                            {pizza.price}€
+                            {getPriceForSize(pizza.price, size).toFixed(2)}€
                         </div>
 
                         {/* Nutriscore / Note */}
