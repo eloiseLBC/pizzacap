@@ -19,7 +19,7 @@ const PizzaDetailView: React.FC = () => {
     const { pizzaId } = useParams<{ pizzaId: string }>();
     const [pizza, setPizza] = useState<Pizza | null>(null);
     const [size, setSize] = useState<'S' | 'M' | 'L'>('M');
-    const [quantity, setQuantity] = useState(1);
+    const [quantity, setQuantity] = useState(0);
     const { updateCartItem } = useCart();
 
     useEffect(() => {
@@ -38,7 +38,7 @@ const PizzaDetailView: React.FC = () => {
     };
 
     const handleAddToCart = () => {
-        setQuantity(2);
+        setQuantity(1);
         updateCartItem({
             name: pizza.name,
             image_url: pizza.image_url,
@@ -108,7 +108,7 @@ const PizzaDetailView: React.FC = () => {
                     )}
 
                     <div className="relative">
-                        <div className={`absolute bottom-0 left-0 ${quantity > 1 ? 'w-[220px]' : 'w-[160px]'} h-[130px] bg-white z-30 rounded-br-[30px] transition-all duration-300`}></div>
+                        <div className={`absolute bottom-0 left-0 ${quantity > 0 ? 'w-[220px]' : 'w-[160px]'} h-[130px] bg-white z-30 rounded-br-[30px] transition-all duration-300`}></div>
                         <img
                             src={pizza.image_url}
                             alt={pizza.name}
@@ -117,9 +117,9 @@ const PizzaDetailView: React.FC = () => {
                         />
                     </div>
 
-                    {quantity > 1 ? (
+                    {quantity > 0 ? (
                         <div className="absolute bottom-[25px] left-[35px] bg-green-600 text-white rounded-full z-40 shadow flex items-center justify-center gap-4 px-6 py-3 text-3xl transition-all duration-300">
-                            <button onClick={() => setQuantity(quantity > 1 ? quantity - 1 : 1)} className="text-4xl font-bold">-</button>
+                            <button onClick={() => setQuantity(quantity > 0 ? quantity - 1 : 0)} className="text-4xl font-bold">-</button>
                             <span className="text-3xl font-bold">{quantity}</span>
                             <button onClick={() => setQuantity(quantity + 1)} className="text-4xl font-bold">+</button>
                         </div>
