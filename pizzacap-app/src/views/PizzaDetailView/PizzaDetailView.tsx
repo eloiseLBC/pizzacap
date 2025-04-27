@@ -30,6 +30,7 @@ const PizzaDetailView: React.FC = () => {
     const quantity = quantities[size];
 
     const { updateCartItem } = useCart();
+    const [ripple, setRipple] = useState(false);
 
     useEffect(() => {
         fetch(`http://127.0.0.1:5050/pizzas/${pizzaId}`)
@@ -63,6 +64,8 @@ const PizzaDetailView: React.FC = () => {
 
     const handleAddFirstPizza = () => {
         handleQuantityChange(1);
+        setRipple(true);
+        setTimeout(() => setRipple(false), 500);
     };
 
     const handleSizeChange = (newSize: 'S' | 'M' | 'L') => {
@@ -217,12 +220,22 @@ const PizzaDetailView: React.FC = () => {
                                         </button>
                                     </>
                                 ) : (
-                                    <button
-                                        onClick={handleAddFirstPizza}
-                                        className="text-4xl font-bold transition-transform duration-200 active:scale-90"
-                                    >
-                                        +
-                                    </button>
+                                    <div className="relative">
+                                        <div
+                                            className={`absolute inset-0 rounded-full bg-white opacity-30 scale-0 transition-transform duration-500 ${
+                                                ripple
+                                                    ? 'scale-150 opacity-0'
+                                                    : ''
+                                            }`}
+                                        />
+
+                                        <button
+                                            onClick={handleAddFirstPizza}
+                                            className="text-4xl font-bold transition-transform duration-200 active:scale-90 relative z-10"
+                                        >
+                                            +
+                                        </button>
+                                    </div>
                                 )}
                             </div>
                         </div>

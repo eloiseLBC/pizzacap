@@ -12,6 +12,7 @@ interface CartContextType {
     cartItems: CartItem[];
     updateCartItem: (item: CartItem) => void;
     getCartItemCount: () => number;
+    lastAddedTime: number | null; // 🔥 ici on ajoute ça
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -20,6 +21,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     children,
 }) => {
     const [cartItems, setCartItems] = useState<CartItem[]>([]);
+    const [lastAddedTime, setLastAddedTime] = useState<number | null>(null); // 🔥 nouveau
 
     const updateCartItem = (item: CartItem) => {
         setCartItems((prev) => {
@@ -38,6 +40,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
             }
             return [...prev, item];
         });
+        setLastAddedTime(Date.now()); // 🔥 on déclenche une notification
     };
 
     const getCartItemCount = () => {
@@ -46,7 +49,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
 
     return (
         <CartContext.Provider
-            value={{ cartItems, updateCartItem, getCartItemCount }}
+            value={{ cartItems, updateCartItem, getCartItemCount, lastAddedTime }} // 🔥 on expose
         >
             {children}
         </CartContext.Provider>
