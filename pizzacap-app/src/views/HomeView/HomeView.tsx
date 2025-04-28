@@ -31,14 +31,22 @@ interface HomeViewProps {}
 
 const HomeView: FC<HomeViewProps> = () => {
     const [pizzas, setPizzas] = useState<PizzaComponentProps[]>([]);
+    const [error, setError] = useState<string | null>(null);
     useEffect(() => {
-        fetch('http://127.0.0.1:5050/pizzas')
-            .then((res) => res.json())
-            .then((data) => {
+        const fetchPizzas = async () => {
+            try {
+                const response = await fetch('http://127.0.0.1:5050/pizzas');
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                const data = await response.json();
                 setPizzas(data);
-                console.log(data);
-            })
-            .catch((err) => console.log(err));
+            } catch (err) {
+                console.error(err);
+                setError('Failed to fetch pizzas. Please try again later.');
+            }
+        };
+        fetchPizzas();
     }, []);
 
     // Liste des catégories uniques sans undefined
@@ -117,53 +125,74 @@ const HomeView: FC<HomeViewProps> = () => {
             </div>
 
             <HeroComponent />
-            <div className="px-12  mx-auto bg-surface">
-                <div className="flex flex-row justify-between align-items-center align-middle mt-12 mb-8">
-                    <h2 className="font-outfit text-2xl ">Pizzas du moment</h2>
-                    <Link to="/menu">
-                        {' '}
-                        <img src={pizza} alt="" className="w-10 h-10" />
-                    </Link>
-                </div>
+            {/* Erreurs OU liste des pizzas */}
+            {error ? (
+                <div className="flex flex-col items-center justify-center mb-10 bg-gradient-to-b from-surface via-white to-surface text-center p-4">
+                    <h1 className="text-5xl font-extrabold text-primary mb-6 ">
+                        404: Oups, on revient
+                    </h1>
 
-                <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-2 gap-4 place-items-center">
-                    {pizzasDuMoment.map((pizza) => (
-                        <PizzaComponent
-                            key={pizza.id}
-                            id={pizza.id}
-                            name={pizza.name}
-                            image_url={pizza.image_url}
-                            ingredients={pizza.ingredients}
-                            price={pizza.price}
-                        />
-                    ))}
-                </div>
-                <div className="flex flex-row justify-between align-items-center align-middle mt-12 mb-8">
-                    <h2 className="font-outfit text-2xl ">Pizzas populaires</h2>
-                    <Link to="/menu">
-                        {' '}
-                        <img src={pizza} alt="" className="w-10 h-10" />
-                    </Link>
-                </div>
+                    <img
+                        src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExdDM2djNrd3g2aWp5bDg0eXprMXVkamhyaXR3a3BvazQyeXAzeGpjdyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3oFzm3VDNEGHEKdRgk/giphy.gif  "
+                        alt="Error 404"
+                        className="w-80 h-80 rounded-3xl mb-6 shadow-2xl"
+                    />
 
-                <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-2 gap-4 place-items-center">
-                    {pizzasPopulaires.map((pizza) => (
-                        <PizzaComponent
-                            key={pizza.id}
-                            id={pizza.id}
-                            name={pizza.name}
-                            image_url={pizza.image_url}
-                            ingredients={pizza.ingredients}
-                            price={pizza.price}
-                        />
-                    ))}
+                    <p className="text-lg text-gray-600 mb-2 max-w-md">
+                        Impossible de récupérer les données
+                    </p>
                 </div>
-            </div>
-            <div className="my-12 flex place-content-center">
+            ) : (<>
+                <div className="px-12  mx-auto bg-surface">
+                    <div className="flex flex-row justify-between align-items-center align-middle mt-12 mb-8">
+                        <h2 className="font-outfit text-2xl ">Pizzas du moment</h2>
+                        <Link to="/menu">
+                            {' '}
+                            <img src={pizza} alt="" className="w-10 h-10" />
+                        </Link>
+                    </div>
+
+                    <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-2 gap-4 place-items-center">
+                        {pizzasDuMoment.map((pizza) => (
+                            <PizzaComponent
+                                key={pizza.id}
+                                id={pizza.id}
+                                name={pizza.name}
+                                image_url={pizza.image_url}
+                                ingredients={pizza.ingredients}
+                                price={pizza.price}
+                            />
+                        ))}
+                    </div>
+                    <div className="flex flex-row justify-between align-items-center align-middle mt-12 mb-8">
+                        <h2 className="font-outfit text-2xl ">Pizzas populaires</h2>
+                        <Link to="/menu">
+                            {' '}
+                            <img src={pizza} alt="" className="w-10 h-10" />
+                        </Link>
+                    </div>
+
+                    <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-2 gap-4 place-items-center">
+                        {pizzasPopulaires.map((pizza) => (
+                            <PizzaComponent
+                                key={pizza.id}
+                                id={pizza.id}
+                                name={pizza.name}
+                                image_url={pizza.image_url}
+                                ingredients={pizza.ingredients}
+                                price={pizza.price}
+                            />
+                        ))}
+                    </div>
+                </div>
+                <div className="my-12 flex place-content-center">
                 <Link to="/menu" className="">
                     <img src={allPizzasButton} alt="Bouton vers le menu" />
                 </Link>
             </div>
+            </>
+            )}
+            
 
             {/* TODO Carte */}
             <div className="rounded-xl">

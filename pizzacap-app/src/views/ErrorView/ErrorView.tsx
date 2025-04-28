@@ -10,7 +10,8 @@ const ErrorView: FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-surface text-center">
-      <h1 className="text-4xl font-bold mb-6">404: Page non trouvée 🧚🏽‍♀️</h1>
+      <h1 className="text-5xl font-extrabold text-primary mb-6">404: Lost in the sauce 🧚🏽‍♀️</h1>
+
       <img
         src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExZm9veHJmZHNjc2o1Z2l1OHd0dTZ0dzAzc2dlaW51ZWVuNW9vZWcweiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/dOOKk7VHAvJja/giphy.gif"
         alt="Error 404"
