@@ -1,3 +1,5 @@
+# pizzacap
+
 ## 🍕 Pizza Cap — Web App
 
 Ce dépôt contient le site web du projet Pizza Cap, réalisé en React + TypeScript avec Tailwind CSS dans le cadre du projet de 4ᵉ année à l'ISEN.
@@ -7,7 +9,7 @@ Le site consomme une API externe développée séparément, disponible dans le d
 
 ## 🧠 Contexte
 
--   🕓 Durée de développement : 16 heures
+-   🕓 Durée de développement : 16 heures de TD présentiel + travail personnel
 -   🎓 Projet pédagogique (développement web)
 -   🎨 Maquette conçue sur Figma
 -   🧪 Tests intégrés
@@ -17,8 +19,8 @@ Le site consomme une API externe développée séparément, disponible dans le d
 
 -   ⚛️ React
 -   🧠 TypeScript
--   💨 Tailwind CSS
--   📏 ESLint
+-   💨 Tailwind CSS, librairie fancy components
+-   📏 ESLint + prettier
 -   🧪 Tests front (en cours d'implémentation)
 
 ## 📡 Connexion à l'API
@@ -33,7 +35,6 @@ Le frontend communique avec une API Flask exposée localement ou en ligne.
 | ------: | -------------- | ----------------------- |
 |     GET | `/pizzas`      | Liste des pizzas        |
 |     GET | `/pizzas/<id>` | Description d'une pizza |
-|     GET | `/restaurants` | Liste des restaurants   |
 
 ## 🧪 Tests
 
@@ -49,23 +50,17 @@ Nous prévoyons d’intégrer des tests frontaux pour :
 pizza-cap/
 ├── public/
 ├── src/
+|   ├── assets/
 │   ├── components/
-│   ├── pages/
-│   ├── styles/
-│   └── types/
+│   ├── views/
+│   ├── layouts/
+│   ├── hooks/
+│   └── models/
 ├── .eslintrc.js
 ├── tailwind.config.js
 ├── tsconfig.json
 └── README.md</pre>
 
-## 🎯 À faire / TODO
-
--   Connexion à l’API
--   Intégration de la maquette Figma
--   Affichage dynamique des pizzas
--   Mise en place des tests
--   Déploiement potentiel
-
 ## ✨ À propos
 
-Projet réalisé par Rozenn et Éloïse, étudiantes de 4ᵉ année à l’ISEN, dans le cadre du module de développement web.
+Projet réalisé par Rozenn et Éloïse, étudiantes de 4ᵉ année à JUNIA ISEN, dans le cadre du module de développement web.
