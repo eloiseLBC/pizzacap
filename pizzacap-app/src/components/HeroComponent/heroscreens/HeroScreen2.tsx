@@ -12,7 +12,7 @@ import Floating, {
 } from '@/fancy/components/image/parallax-floating';
 import { useEffect } from 'react';
 
-export const HeroScreen2 = () => {
+const HeroScreen2 = () => {
     const [scope2, animate] = useAnimate();
     useEffect(() => {
         animate(
@@ -100,3 +100,5 @@ export const HeroScreen2 = () => {
         </>
     );
 };
+
+export default HeroScreen2;

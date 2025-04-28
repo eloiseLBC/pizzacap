@@ -1,5 +1,7 @@
-import { useEffect, useState } from 'react';
-import PizzaComponent from '../../components/PizzaComponent/PizzaComponent';
+import React, { useEffect, useState } from 'react';
+const PizzaComponent = React.lazy(
+    () => import('../../components/PizzaComponent/PizzaComponent'),
+);
 import { PizzaComponentProps } from '../../models/PizzaComponentProps';
 
 const MenuView = () => {
