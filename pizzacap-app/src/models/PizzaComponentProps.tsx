@@ -4,6 +4,6 @@ export interface PizzaComponentProps {
     image_url: string;
     ingredients: string[];
     price: number;
-    categorie?: string;
-    features?: string;
+    categorie: string;
+    features?: Record<string, boolean>;
 }

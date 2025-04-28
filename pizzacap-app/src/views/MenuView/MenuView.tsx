@@ -5,9 +5,8 @@ import { PizzaComponentProps } from '../../models/PizzaComponentProps';
 const MenuView = () => {
     const [pizzas, setPizzas] = useState<PizzaComponentProps[]>([]);
     const [searchTerm, setSearchTerm] = useState('');
-    const [selectedCategory, setSelectedCategory] = useState<string | null>(
-        null,
-    );
+    const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+    const [showCategories, setShowCategories] = useState(true);
 
     useEffect(() => {
         fetch('http://127.0.0.1:5050/pizzas')
@@ -16,7 +15,6 @@ const MenuView = () => {
             .catch((err) => console.log(err));
     }, []);
 
-    // Liste des catégories uniques sans undefined
     const allCategories = Array.from(
         new Set(
             pizzas
@@ -25,31 +23,34 @@ const MenuView = () => {
         ),
     );
 
-    // Filtrage par recherche et catégorie
     const filteredPizzas = pizzas.filter((p) => {
-        const matchesSearch = p.name
-            .toLowerCase()
-            .includes(searchTerm.toLowerCase());
-        const matchesCategory = selectedCategory
-            ? p.categorie === selectedCategory
-            : true;
+        const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase());
+        const matchesCategory = selectedCategory ? p.categorie === selectedCategory : true;
         return matchesSearch && matchesCategory;
     });
 
-    // Groupement par catégorie
-    const groupedByCategory: { [key: string]: PizzaComponentProps[] } =
-        filteredPizzas.reduce((acc, pizza) => {
+    const groupedByCategory: { [key: string]: PizzaComponentProps[] } = filteredPizzas.reduce(
+        (acc, pizza) => {
             const category = pizza.categorie || 'Autres';
             if (!acc[category]) acc[category] = [];
             acc[category].push(pizza);
             return acc;
-        }, {} as { [key: string]: PizzaComponentProps[] });
+        },
+        {} as { [key: string]: PizzaComponentProps[] },
+    );
 
     return (
-        <>
-            <div className="w-full">
-                {/* Barre de recherche */}
-                <div className="flex justify-center mt-10 mb-6 px-4">
+        <div className="w-full">
+            {/* Sticky search bar */}
+            <div className="sticky top-0 z-40 bg-white py-4 shadow-sm">
+                <div className="flex justify-center items-center gap-4 px-4">
+                    <button
+                        onClick={() => setShowCategories(!showCategories)}
+                        className="bg-beige rounded-full w-10 h-10 flex items-center justify-center text-xl text-gray-600 shadow-md"
+                    >
+                        {showCategories ? '-' : '+'}
+                    </button>
+
                     <input
                         type="text"
                         placeholder="Rechercher une pizza..."
@@ -60,69 +61,67 @@ const MenuView = () => {
                 </div>
 
                 {/* Filtres de catégories */}
-                <div className="flex flex-wrap justify-center gap-4 mb-10 px-4">
-                    <button
-                        onClick={() => setSelectedCategory(null)}
-                        className={`px-6 py-2 rounded-full font-outfit text-lg transition-colors duration-200 ${
-                            selectedCategory === null
-                                ? 'bg-green-600 text-white'
-                                : 'bg-beige text-gray-700'
-                        }`}
-                    >
-                        Toutes
-                    </button>
-                    {allCategories.map((cat: string) => (
+                {showCategories && (
+                    <div className="flex flex-wrap justify-center gap-4 mt-4 px-4">
                         <button
-                            key={cat}
-                            onClick={() =>
-                                setSelectedCategory(
-                                    cat === selectedCategory ? null : cat,
-                                )
-                            }
+                            onClick={() => setSelectedCategory(null)}
                             className={`px-6 py-2 rounded-full font-outfit text-lg transition-colors duration-200 ${
-                                selectedCategory === cat
+                                selectedCategory === null
                                     ? 'bg-green-600 text-white'
                                     : 'bg-beige text-gray-700'
                             }`}
                         >
-                            {cat}
+                            Toutes
                         </button>
-                    ))}
-                </div>
-
-                {/* Message si aucun résultat */}
-                {Object.keys(groupedByCategory).length === 0 && (
-                    <p className="text-center text-gray-500 mt-8 font-outfit">
-                        Aucun résultat ne correspond à ta recherche.
-                    </p>
-                )}
-
-                {/* Affichage des pizzas par catégorie */}
-                {Object.entries(groupedByCategory).map(([category, items]) => (
-                    <div
-                        key={category}
-                        className="max-w-screen-xl mx-auto mb-20"
-                    >
-                        <h2 className="text-3xl font-bold font-outfit mb-8 mt-20 text-left px-6 md:px-10">
-                            {category}
-                        </h2>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 px-6 md:px-10">
-                            {items.map((pizza) => (
-                                <PizzaComponent
-                                    key={pizza.id}
-                                    id={pizza.id}
-                                    name={pizza.name}
-                                    image_url={pizza.image_url}
-                                    ingredients={pizza.ingredients}
-                                    price={pizza.price}
-                                    features={pizza.features}
-                                />
-                            ))}
-                        </div>
+                        {allCategories.map((cat: string) => (
+                            <button
+                                key={cat}
+                                onClick={() =>
+                                    setSelectedCategory(cat === selectedCategory ? null : cat)
+                                }
+                                className={`px-6 py-2 rounded-full font-outfit text-lg transition-colors duration-200 ${
+                                    selectedCategory === cat
+                                        ? 'bg-green-600 text-white'
+                                        : 'bg-beige text-gray-700'
+                                }`}
+                            >
+                                {cat}
+                            </button>
+                        ))}
                     </div>
-                ))}
+                )}
             </div>
-        </>
+
+            {/* Message si aucun résultat */}
+            {Object.keys(groupedByCategory).length === 0 && (
+                <p className="text-center text-gray-500 mt-8 font-outfit">
+                    Aucun résultat ne correspond à ta recherche.
+                </p>
+            )}
+
+            {/* Affichage des pizzas par catégorie */}
+            {Object.entries(groupedByCategory).map(([category, items]) => (
+                <div key={category} className="max-w-screen-xl mx-auto mb-20">
+                    <h2 className="text-3xl font-bold font-outfit mb-8 mt-10 text-left px-6 md:px-10">
+                        {category}
+                    </h2>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 justify-items-center mx-auto max-w-[1200px]">
+                        {items.map((pizza) => (
+                            <PizzaComponent
+                                key={pizza.id}
+                                id={pizza.id}
+                                name={pizza.name}
+                                image_url={pizza.image_url}
+                                ingredients={pizza.ingredients}
+                                price={pizza.price}
+                                features={pizza.features}
+                                categorie={pizza.categorie}
+                            />
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </div>
     );
 };
 
