@@ -111,7 +111,10 @@ const HomeView: FC<HomeViewProps> = () => {
             <div className="px-12  mx-auto bg-surface">
                 <div className="flex flex-row justify-between align-items-center align-middle mt-12 mb-8">
                     <h2 className="font-outfit text-2xl ">Pizzas du moment</h2>
-                    <img src={pizza} alt="" className="w-10 h-10" />
+                    <Link to="/menu">
+                        {' '}
+                        <img src={pizza} alt="" className="w-10 h-10" />
+                    </Link>
                 </div>
 
                 <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-2 gap-4 place-items-center">
@@ -128,7 +131,10 @@ const HomeView: FC<HomeViewProps> = () => {
                 </div>
                 <div className="flex flex-row justify-between align-items-center align-middle mt-12 mb-8">
                     <h2 className="font-outfit text-2xl ">Pizzas populaires</h2>
-                    <img src={pizza} alt="" className="w-10 h-10" />
+                    <Link to="/menu">
+                        {' '}
+                        <img src={pizza} alt="" className="w-10 h-10" />
+                    </Link>
                 </div>
 
                 <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-2 gap-4 place-items-center">
@@ -151,7 +157,7 @@ const HomeView: FC<HomeViewProps> = () => {
             </div>
 
             {/* TODO Carte */}
-            <div>
+            <div className="rounded-xl">
                 <MapContainer
                     className="h-56 w-2/3 mx-auto"
                     center={[43.6490342, 1.3534217]}
@@ -159,6 +165,7 @@ const HomeView: FC<HomeViewProps> = () => {
                     scrollWheelZoom={false}
                 >
                     <TileLayer
+                        className="rounded-xl"
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />

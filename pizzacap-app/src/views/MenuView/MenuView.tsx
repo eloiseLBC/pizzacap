@@ -5,7 +5,9 @@ import { PizzaComponentProps } from '../../models/PizzaComponentProps';
 const MenuView = () => {
     const [pizzas, setPizzas] = useState<PizzaComponentProps[]>([]);
     const [searchTerm, setSearchTerm] = useState('');
-    const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+    const [selectedCategory, setSelectedCategory] = useState<string | null>(
+        null,
+    );
     const [showCategories, setShowCategories] = useState(true);
 
     useEffect(() => {
@@ -24,25 +26,27 @@ const MenuView = () => {
     );
 
     const filteredPizzas = pizzas.filter((p) => {
-        const matchesSearch = p.name.toLowerCase().includes(searchTerm.toLowerCase());
-        const matchesCategory = selectedCategory ? p.categorie === selectedCategory : true;
+        const matchesSearch = p.name
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase());
+        const matchesCategory = selectedCategory
+            ? p.categorie === selectedCategory
+            : true;
         return matchesSearch && matchesCategory;
     });
 
-    const groupedByCategory: { [key: string]: PizzaComponentProps[] } = filteredPizzas.reduce(
-        (acc, pizza) => {
+    const groupedByCategory: { [key: string]: PizzaComponentProps[] } =
+        filteredPizzas.reduce((acc, pizza) => {
             const category = pizza.categorie || 'Autres';
             if (!acc[category]) acc[category] = [];
             acc[category].push(pizza);
             return acc;
-        },
-        {} as { [key: string]: PizzaComponentProps[] },
-    );
+        }, {} as { [key: string]: PizzaComponentProps[] });
 
     return (
-        <div className="w-full">
+        <div className="w-full pt-20">
             {/* Sticky search bar */}
-            <div className="sticky top-0 z-40 bg-white py-4 shadow-sm">
+            <div className="sticky top-0 z-40 bg-surface py-4 shadow-sm">
                 <div className="flex justify-center items-center gap-4 px-4">
                     <button
                         onClick={() => setShowCategories(!showCategories)}
@@ -77,7 +81,9 @@ const MenuView = () => {
                             <button
                                 key={cat}
                                 onClick={() =>
-                                    setSelectedCategory(cat === selectedCategory ? null : cat)
+                                    setSelectedCategory(
+                                        cat === selectedCategory ? null : cat,
+                                    )
                                 }
                                 className={`px-6 py-2 rounded-full font-outfit text-lg transition-colors duration-200 ${
                                     selectedCategory === cat

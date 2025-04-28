@@ -51,7 +51,7 @@ const PizzaDetailView: React.FC = () => {
 
     const handleQuantityChange = (newQuantity: number) => {
         if (!pizza) return;
-        
+
         updateCartItem({
             name: pizza.name,
             image_url: pizza.image_url,
@@ -72,8 +72,8 @@ const PizzaDetailView: React.FC = () => {
     };
 
     return (
-        <div className="min-h-screen bg-beige font-outfit text-black">
-            <div className="max-w-[1200px] mx-auto px-6 py-11 grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
+        <div className="min-h-fit bg-beige font-outfit text-black pb-12 lg:pt-12">
+            <div className="max-w-[1200px] mx-auto px-6 py-8 grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
                 {/* Partie Gauche */}
                 <div className="flex flex-col items-center lg:items-start text-center lg:text-left pl-8 pt-10">
                     <h1 className="text-5xl font-bold mb-4">{pizza.name}</h1>
@@ -133,10 +133,10 @@ const PizzaDetailView: React.FC = () => {
                 </div>
 
                 {/* Partie Droite */}
-                <div className="relative w-full max-w-[900px] top-8">
+                <div className="relative w-[80%] max-w-[900px] top-8 mx-auto place-items-center">
                     {pizza.features &&
                         Object.keys(pizza.features).length > 0 && (
-                            <div className="absolute top-12 right-[-70px] bg-secondary-variant rounded-full px-8 py-4 shadow-md flex gap-5 items-center z-30 min-h-[70px]">
+                            <div className="absolute lg:top-12 lg:right-[-70px] lg:left-auto -top-12 left-[50%] bg-secondary-variant rounded-full px-8 py-4 shadow-md flex gap-5 items-center z-30 min-h-[70px]">
                                 {Object.entries(pizza.features).map(
                                     ([featureName, isEnabled], index) => {
                                         if (!isEnabled) return null;
@@ -170,9 +170,9 @@ const PizzaDetailView: React.FC = () => {
                     <div className="relative">
                         {/* Div blanche arrondie */}
                         <div
-                            className={`absolute bottom-0 left-0 ${
+                            className={`absolute -bottom-1 -left-1 ${
                                 quantity > 0 ? 'w-[220px]' : 'w-[160px]'
-                            } h-[130px] bg-white z-30 transition-all duration-700 ease-out rounded-tr-[30px]`}
+                            } h-[130px] bg-surface z-30 transition-all duration-700 ease-out rounded-tr-[30px]`}
                         >
                             <div className="absolute top-0 left-0 w-[60px] h-[60px] bg-beige rounded-br-[30px]"></div>
                             <div className="absolute bottom-0 right-0 w-[60px] h-[60px] bg-beige rounded-tl-[30px]"></div>
