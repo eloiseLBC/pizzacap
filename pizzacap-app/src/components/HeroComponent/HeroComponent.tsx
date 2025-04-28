@@ -1,8 +1,7 @@
 import React, { act, FC } from 'react';
-
-import { HeroScreen1 } from './heroscreens/HeroScreen1';
-import { HeroScreen2 } from './heroscreens/HeroScreen2';
-import { HeroScreen3 } from './heroscreens/HeroScreen3';
+import HeroScreen1 from './heroscreens/HeroScreen1';
+import HeroScreen2 from './heroscreens/HeroScreen2';
+import HeroScreen3 from './heroscreens/HeroScreen3';
 import { HeroNavbar } from '../HeroNavbarComponent/HeroNavbarComponent';
 import { useState } from 'react';
 

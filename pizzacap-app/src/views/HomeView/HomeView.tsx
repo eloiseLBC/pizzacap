@@ -2,15 +2,24 @@ import React, { FC } from 'react';
 import heart from '../../assets/heart.png';
 import heropic1 from '../../assets/heropic1.png';
 import heropic2 from '../../assets/heropic2.png';
-import HeroComponent from '../../components/HeroComponent/HeroComponent';
+const HeroComponent = React.lazy(
+    () => import('../../components/HeroComponent/HeroComponent'),
+);
 import { useEffect, useState } from 'react';
 import { PizzaComponentProps } from '../../models/PizzaComponentProps';
-import PizzaComponent from '../../components/PizzaComponent/PizzaComponent';
+const PizzaComponent = React.lazy(
+    () => import('../../components/PizzaComponent/PizzaComponent'),
+);
 import allPizzasButton from '../../assets/Toutes_les_pizzas_button.png';
 import { Link } from 'react-router-dom';
 import firstCommentPic from '../../assets/3.png';
 import secondCommentPic from '../../assets/3d_avatar_10.png';
-import CustomerCommentComponent from '../../components/CustomerCommentComponent/CustomerCommentComponent';
+const CustomerCommentComponent = React.lazy(
+    () =>
+        import(
+            '../../components/CustomerCommentComponent/CustomerCommentComponent'
+        ),
+);
 import { MapContainer } from 'react-leaflet';
 import { TileLayer } from 'react-leaflet';
 import { Marker } from 'react-leaflet';
