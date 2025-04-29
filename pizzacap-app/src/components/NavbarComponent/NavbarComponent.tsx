@@ -43,7 +43,7 @@ const NavbarComponent: React.FC = () => {
                     <img
                         src={house}
                         alt="My logo"
-                        className="w-10 p-2  mx-4 lg:hidden"
+                        className="w-12 p-2  mx-4 lg:hidden"
                     />
                 </Link>
                 <Link to="#">
@@ -70,7 +70,7 @@ const NavbarComponent: React.FC = () => {
                     <img
                         src={bagShopping}
                         alt="Panier"
-                        className="w-10 p-2  cursor-pointer"
+                        className="w-12 p-2 cursor-pointer"
                         onClick={() => setIsCartOpen(true)}
                     />
 
@@ -85,7 +85,7 @@ const NavbarComponent: React.FC = () => {
                 <img
                     src={tag}
                     alt="My logo"
-                    className="w-10 p-2 mx-4 lg:hidden"
+                    className="w-11 p-2 mx-4 lg:hidden"
                 />
             </Link>
             </div>
