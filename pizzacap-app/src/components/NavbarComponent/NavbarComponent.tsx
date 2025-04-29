@@ -66,11 +66,11 @@ const NavbarComponent: React.FC = () => {
                     <a href="#">Uber/Deliveroo</a>
                     <a href="#">Nous trouver</a>
                 </div>
-                <div className="relative lg:mr-8">
+                <div className="relative mx-4 lg:mr-8">
                     <img
                         src={bagShopping}
                         alt="Panier"
-                        className="w-10 p-2  mx-4 cursor-pointer"
+                        className="w-10 p-2  cursor-pointer"
                         onClick={() => setIsCartOpen(true)}
                     />
 
