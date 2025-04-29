@@ -70,7 +70,7 @@ const NavbarComponent: React.FC = () => {
                     <img
                         src={bagShopping}
                         alt="Panier"
-                        className="w-10 p-2 cursor-pointer sm:w-12"
+                        className="w-10 p-2 cursor-pointer sm:w-14"
                         onClick={() => setIsCartOpen(true)}
                     />
 
