@@ -58,7 +58,7 @@ const PizzaComponent: React.FC<PizzaComponentProps> = ({
     };
 
     const isVegetarian = features?.Vegetarian === true;
-    console.log("pizza : ", name, " features : ", features)
+    console.log("pizza : ", name, " features : ", features, " isVegetarien : ", isVegetarian )
 
     return (
         <div className="w-72 rounded-3xl border border-primary-variant flex flex-col items-center shadow-md">
