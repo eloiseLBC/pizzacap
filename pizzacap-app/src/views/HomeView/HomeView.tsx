@@ -2,6 +2,17 @@ import React, { FC } from 'react';
 import heart from '../../assets/heart.png';
 import heropic1 from '../../assets/heropic1.png';
 import heropic2 from '../../assets/heropic2.png';
+import L from 'leaflet';
+
+const redIcon = new L.Icon({
+  iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+  shadowUrl: 'https://unpkg.com/leaflet@1.9.3/dist/images/marker-shadow.png',
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  shadowSize: [41, 41]
+});
+
 const HeroComponent = React.lazy(
     () => import('../../components/HeroComponent/HeroComponent'),
 );
@@ -35,7 +46,9 @@ const HomeView: FC<HomeViewProps> = () => {
     useEffect(() => {
         const fetchPizzas = async () => {
             try {
-                const response = await fetch(`${import.meta.env.VITE_API_URL}/pizzas`);
+                const response = await fetch(
+                    `${import.meta.env.VITE_API_URL}/pizzas`,
+                );
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
@@ -142,96 +155,161 @@ const HomeView: FC<HomeViewProps> = () => {
                         Impossible de récupérer les données
                     </p>
                 </div>
-            ) : (<>
-                <div className="px-12  mx-auto bg-surface">
-                    <div className="flex flex-row justify-between align-items-center align-middle mt-12 mb-8">
-                        <h2 className="font-outfit text-2xl ">Pizzas du moment</h2>
-                        <Link to="/menu">
-                            {' '}
-                            <img src={pizza} alt="" className="w-10 h-10" />
+            ) : (
+                <>
+                    <div className="px-12  mx-auto bg-surface">
+                        <div className="flex flex-row justify-between align-items-center align-middle mt-12 mb-8">
+                            <h2 className="font-outfit text-2xl ">
+                                Pizzas du moment
+                            </h2>
+                            <Link to="/menu">
+                                {' '}
+                                <img src={pizza} alt="" className="w-10 h-10" />
+                            </Link>
+                        </div>
+
+                        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-2 gap-4 place-items-center">
+                            {pizzasDuMoment.map((pizza) => (
+                                <PizzaComponent
+                                    key={pizza.id}
+                                    id={pizza.id}
+                                    name={pizza.name}
+                                    image_url={pizza.image_url}
+                                    ingredients={pizza.ingredients}
+                                    price={pizza.price}
+                                    categorie={pizza.categorie}
+                                />
+                            ))}
+                        </div>
+                        <div className="flex flex-row justify-between align-items-center align-middle mt-12 mb-8">
+                            <h2 className="font-outfit text-2xl ">
+                                Pizzas populaires
+                            </h2>
+                            <Link to="/menu">
+                                {' '}
+                                <img src={pizza} alt="" className="w-10 h-10" />
+                            </Link>
+                        </div>
+
+                        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-2 gap-4 place-items-center">
+                            {pizzasPopulaires.map((pizza) => (
+                                <PizzaComponent
+                                    key={pizza.id}
+                                    id={pizza.id}
+                                    name={pizza.name}
+                                    image_url={pizza.image_url}
+                                    ingredients={pizza.ingredients}
+                                    price={pizza.price}
+                                    categorie={pizza.categorie}
+                                />
+                            ))}
+                        </div>
+                    </div>
+                    <div className="my-12 flex place-content-center">
+                        <Link to="/menu" className="">
+                            <img
+                                src={allPizzasButton}
+                                alt="Bouton vers le menu"
+                            />
                         </Link>
                     </div>
-
-                    <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-2 gap-4 place-items-center">
-                        {pizzasDuMoment.map((pizza) => (
-                            <PizzaComponent
-                                key={pizza.id}
-                                id={pizza.id}
-                                name={pizza.name}
-                                image_url={pizza.image_url}
-                                ingredients={pizza.ingredients}
-                                price={pizza.price}
-                                categorie={pizza.categorie}
-                            />
-                        ))}
-                    </div>
-                    <div className="flex flex-row justify-between align-items-center align-middle mt-12 mb-8">
-                        <h2 className="font-outfit text-2xl ">Pizzas populaires</h2>
-                        <Link to="/menu">
-                            {' '}
-                            <img src={pizza} alt="" className="w-10 h-10" />
-                        </Link>
-                    </div>
-
-                    <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-2 gap-4 place-items-center">
-                        {pizzasPopulaires.map((pizza) => (
-                            <PizzaComponent
-                                key={pizza.id}
-                                id={pizza.id}
-                                name={pizza.name}
-                                image_url={pizza.image_url}
-                                ingredients={pizza.ingredients}
-                                price={pizza.price}
-                                categorie={pizza.categorie}
-                            />
-                        ))}
-                    </div>
-                </div>
-                <div className="my-12 flex place-content-center">
-                <Link to="/menu" className="">
-                    <img src={allPizzasButton} alt="Bouton vers le menu" />
-                </Link>
-            </div>
-            </>
+                </>
             )}
-            
 
             {/* TODO Carte */}
-            <div className="rounded-xl">
+            <div className="w-2/3 mx-auto rounded-xl overflow-hidden border-4 border-primary-variant shadow-xl">
                 <MapContainer
-                    className="h-56 w-2/3 mx-auto"
+                    className="h-56 w-full rounded-xl"
                     center={[43.6490342, 1.3534217]}
                     zoom={10}
                     scrollWheelZoom={false}
                 >
                     <TileLayer
-                        className="rounded-xl"
                         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
-                    <Marker position={[43.60755637580316, 1.4279942515551547]}>
+                    <Marker position={[43.60755637580316, 1.4279942515551547]} icon={redIcon}>
                         <Popup>
-                            <p>Héracles</p>
-                            3 Av. Paul Séjourné, <br />
-                            31000 Toulouse
+                            <div className="font-outfit" style={{backgroundColor: 'white',borderRadius: '10px',boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',padding: '8px 10px',fontSize: '12px',width: '180px',lineHeight: '1.3'}}>
+                                <h3 style={{color: '#dc2626',fontWeight: 600,fontSize: '14px',marginBottom: '2px'}}>
+                                    PizzaCap
+                                </h3>
+                                <p style={{ margin: 0 }}>
+                                    3 Av. Paul Séjourné,
+                                    <br />
+                                    31000 Toulouse
+                                </p>
+                                <div style={{display: 'flex', alignItems: 'center', marginTop: '4px'}}>
+                                    <span style={{color: '#16a34a', marginRight: '4px'}}>
+                                        📞
+                                    </span>
+                                    <span
+                                        style={{fontWeight: 500,fontSize: '12px'}}>
+                                        05 61 21 24 24
+                                    </span>
+                                </div>
+                                <p
+                                    style={{color: '#16a34a',fontWeight: 500,fontSize: '12px',marginTop: '4px',marginBottom: 0}}>
+                                    Ouvert de 10h à 23h
+                                </p>
+                            </div>
                         </Popup>
                     </Marker>
-                    <Marker position={[43.59730102207966, 1.4460186961335717]}>
+                    <Marker position={[43.59730102207966, 1.4460186961335717]} icon={redIcon}>
                         <Popup>
-                            <p>Carmes</p>
-                            26 Rue du Languedoc, <br />
+                        <div className="font-outfit" style={{backgroundColor: 'white',borderRadius: '10px',boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',padding: '8px 10px',fontSize: '12px',width: '180px',lineHeight: '1.3'}}>
+                            <h3 style={{color: '#dc2626',fontWeight: 600,fontSize: '14px',marginBottom: '2px'}}>
+                                PizzaCap
+                            </h3>
+                            <p style={{ margin: 0 }}>
+                            26 Rue du Languedoc <br />
                             31000 Toulouse
+                            </p>
+                            <div style={{display: 'flex', alignItems: 'center', marginTop: '4px'}}>
+                                    <span style={{color: '#16a34a', marginRight: '4px'}}>
+                                        📞
+                                    </span>
+                                    <span
+                                        style={{fontWeight: 500,fontSize: '12px'}}>
+                                        05 61 21 24 24
+                                    </span>
+                                </div>
+                                <p
+                                    style={{color: '#16a34a',fontWeight: 500,fontSize: '12px',marginTop: '4px',marginBottom: 0}}>
+                                    Ouvert de 10h à 23h
+                                </p>
+                            </div> 
                         </Popup>
                     </Marker>
-                    <Marker position={[43.55470847720786, 1.4692128928243506]}>
+                    <Marker position={[43.55470847720786, 1.4692128928243506]} icon={redIcon}>
                         <Popup>
-                            <p>Rangueil</p>
-                            271 Rte de Narbonne, <br />
-                            31400 Toulouse
+                        <div className="font-outfit" style={{backgroundColor: 'white',borderRadius: '10px',boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',padding: '8px 10px',fontSize: '12px',width: '180px',lineHeight: '1.3'}}>
+                            <h3 style={{color: '#dc2626',fontWeight: 600,fontSize: '14px',marginBottom: '2px'}}>
+                                PizzaCap
+                            </h3>
+                            <p style={{ margin: 0 }}>
+                            271 Rte de Narbonne<br />
+                            31400 Rangueil
+                            </p>
+                            <div style={{display: 'flex', alignItems: 'center', marginTop: '4px'}}>
+                                    <span style={{color: '#16a34a', marginRight: '4px'}}>
+                                        📞
+                                    </span>
+                                    <span
+                                        style={{fontWeight: 500,fontSize: '12px'}}>
+                                        05 61 21 24 24
+                                    </span>
+                                </div>
+                                <p
+                                    style={{color: '#16a34a',fontWeight: 500,fontSize: '12px',marginTop: '4px',marginBottom: 0}}>
+                                    Ouvert de 10h à 23h
+                                </p>
+                            </div> 
                         </Popup>
                     </Marker>
                 </MapContainer>
             </div>
+
             <div className="p-12 px-20 lg:grid flex flex-col gap-y-12 lg:grid-cols-2 gap-x-8">
                 <div className="w-3/4 border-solid border-t-2 border-primary-variant m-auto pb-4 col-span-2"></div>
                 <CustomerCommentComponent
