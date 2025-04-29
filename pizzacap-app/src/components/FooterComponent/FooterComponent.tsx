@@ -12,14 +12,29 @@ const FooterComponent: FC<FooterComponentProps> = () => (
         className="bg-surface px-8 pb-8 flex flex-col"
     >
         <div className="w-3/4 border-solid border-t-2 border-primary-variant m-auto pb-8"></div>
-        <div className="h-12 flex justify-center gap-6 m-4">
-            <img src={instagram} alt="Instagram Logo" className="p-1.5" />
-            <img src={youtube} alt="Youtube Logo" />
+        <div className="h-12 flex items-center justify-center gap-6 m-auto">
+            <img
+                src={instagram}
+                alt="Instagram Logo"
+                className="h-full object-contain p-1.5"
+            />
+            <img
+                src={youtube}
+                alt="Youtube Logo"
+                className="h-full object-contain"
+            />
             <p className="text-5xl font-sulphur font-extralight">|</p>
-            <img src={applePay} alt="Apple Pay Logo" />
-            <img src={creditCard} alt="Credit card Logo" />
+            <img
+                src={applePay}
+                alt="Apple Pay Logo"
+                className="h-full object-contain"
+            />
+            <img
+                src={creditCard}
+                alt="Credit card Logo"
+                className="h-full object-contain"
+            />
         </div>
-
         <div className="justify-between flex flex-col lg:flex-row lg:items-center">
             <div className="text-center lg:text-left">
                 <h4 className="font-sulphur text-3xl">Pizzerias</h4>
