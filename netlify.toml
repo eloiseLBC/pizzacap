@@ -5,5 +5,5 @@
 
 [[redirects]]
   from = "/api/*"
-  to = "https://your-flask-api-url.railway.app/api/:splat"
+  to = "https://web-production-f8dcc1.up.railway.app"
   status = 200
