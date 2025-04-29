@@ -35,7 +35,7 @@ const HomeView: FC<HomeViewProps> = () => {
     useEffect(() => {
         const fetchPizzas = async () => {
             try {
-                const response = await fetch('http://127.0.0.1:5050/pizzas');
+                const response = await fetch(`${import.meta.env.VITE_API_URL}/pizzas`);
                 if (!response.ok) {
                     throw new Error(`HTTP error! Status: ${response.status}`);
                 }
@@ -161,6 +161,7 @@ const HomeView: FC<HomeViewProps> = () => {
                                 image_url={pizza.image_url}
                                 ingredients={pizza.ingredients}
                                 price={pizza.price}
+                                categorie={pizza.categorie}
                             />
                         ))}
                     </div>
@@ -181,6 +182,7 @@ const HomeView: FC<HomeViewProps> = () => {
                                 image_url={pizza.image_url}
                                 ingredients={pizza.ingredients}
                                 price={pizza.price}
+                                categorie={pizza.categorie}
                             />
                         ))}
                     </div>

@@ -29,7 +29,7 @@ const PizzaDetailView: React.FC = () => {
     const [ripple, setRipple] = useState(false);
 
     useEffect(() => {
-        fetch(`http://127.0.0.1:5050/pizzas/${pizzaId}`)
+        fetch(`${import.meta.env.VITE_API_URL}/pizzas/${pizzaId}`)
             .then((res) => res.json())
             .then((data) => setPizza(data))
             .catch((err) => console.error(err));
