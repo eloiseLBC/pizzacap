@@ -37,25 +37,28 @@ const NavbarComponent: React.FC = () => {
         <div>
             <div
                 data-testid="NavbarComponent"
-                className="bg-primary text-white flex font-outfit font-light lg:rounded-b-xl lg:rounded-t-none rounded-t-xl p-2 justify-center align-center  fixed w-full lg:top-0 bottom-0 lg:bottom-auto z-[1200] "
+                className="bg-primary text-white flex font-outfit font-light lg:rounded-b-xl lg:rounded-t-none rounded-t-xl p-2 justify-center align-center  fixed w-full lg:top-0 bottom-0 lg:bottom-auto z-[1200] place-content-between "
             >
                 <Link to="/">
                     <img
                         src={house}
                         alt="My logo"
-                        className="w-10 p-2 mx-4 lg:hidden"
+                        className="w-10 p-2  mx-4 lg:hidden"
                     />
                 </Link>
                 <Link to="#">
                     <img
                         src={location}
                         alt="My logo"
-                        className="w-10 p-2 mx-4 lg:hidden"
+                        className="w-10 p-2  mx-4 lg:hidden"
                     />
                 </Link>
 
-                <Link to="/">
-                    <img src={logo} alt="My logo" className="w-20" />
+                <Link to="/" className='hidden lg:block'>
+                    <img src={logo} alt="My logo" className="w-20 mx-4 " />
+                </Link>
+                <Link to="/menu" className='lg:hidden'>
+                    <img src={logo} alt="My logo" className="w-20  mx-4" />
                 </Link>
                 <div className="flex-grow hidden lg:inline-flex gap-4 items-center justify-center">
                     <Link to="/menu">Commander</Link>
@@ -63,11 +66,11 @@ const NavbarComponent: React.FC = () => {
                     <a href="#">Uber/Deliveroo</a>
                     <a href="#">Nous trouver</a>
                 </div>
-                <div className="relative mr-8">
+                <div className="relative lg:mr-8">
                     <img
                         src={bagShopping}
                         alt="Panier"
-                        className="w-10 p-2 cursor-pointer"
+                        className="w-10 p-2  mx-4 cursor-pointer"
                         onClick={() => setIsCartOpen(true)}
                     />
 
@@ -78,14 +81,15 @@ const NavbarComponent: React.FC = () => {
                         />
                     )}
                 </div>
-            </div>
-            <Link to="#">
+                <Link to="#">
                 <img
                     src={tag}
                     alt="My logo"
                     className="w-10 p-2 mx-4 lg:hidden"
                 />
             </Link>
+            </div>
+            
             <CartOverlay
                 isOpen={isCartOpen}
                 onClose={() => setIsCartOpen(false)}
