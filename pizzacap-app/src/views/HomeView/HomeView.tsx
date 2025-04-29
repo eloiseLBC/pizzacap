@@ -158,7 +158,7 @@ const HomeView: FC<HomeViewProps> = () => {
             ) : (
                 <>
                     <div className="px-12  mx-auto bg-surface">
-                        <div className="flex flex-row justify-between align-items-center align-middle mt-12 mb-8">
+                        <div className="flex flex-row justify-between align-items-center align-middle mt-0 mb-8">
                             <h2 className="font-outfit text-2xl ">
                                 Pizzas du moment
                             </h2>
@@ -181,7 +181,7 @@ const HomeView: FC<HomeViewProps> = () => {
                                 />
                             ))}
                         </div>
-                        <div className="flex flex-row justify-between align-items-center align-middle mt-12 mb-8">
+                        <div className="flex flex-row justify-between align-items-center align-middle mt-0 mb-8">
                             <h2 className="font-outfit text-2xl ">
                                 Pizzas populaires
                             </h2>
